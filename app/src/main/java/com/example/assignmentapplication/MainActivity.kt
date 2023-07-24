@@ -1,17 +1,12 @@
 package com.example.assignmentapplication
 
-import android.content.ClipData
-import android.content.ClipDescription
 import android.os.Bundle
-import android.util.Log
 import android.view.DragEvent
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.assignmentapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), DeleteDialogFragment.DeleteDialogListener {
@@ -33,7 +28,6 @@ class MainActivity : AppCompatActivity(), DeleteDialogFragment.DeleteDialogListe
             LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
 
         mainActivityViewModel.users.observe(this) {
-            Log.d("YASH from Observe", it.toString())
             adapter.setUserList(it)
         }
 
@@ -45,7 +39,6 @@ class MainActivity : AppCompatActivity(), DeleteDialogFragment.DeleteDialogListe
                     itemToDelete = index
                     val deleteDialog = DeleteDialogFragment(mainActivityViewModel.getUser(index))
                     deleteDialog.show(supportFragmentManager, "DeleteDialogFragment")
-                    Log.d("YASH on DROP", item.text as String)
                 }
             }
             return@setOnDragListener true

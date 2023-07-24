@@ -3,19 +3,12 @@ package com.example.assignmentapplication
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.annotation.NonNull
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.assignmentapplication.databinding.ItemLayoutBinding
 import com.example.assignmentapplication.model.User
-import com.google.android.material.card.MaterialCardView
 
 
 class UserRecyclerViewAdapter(private val context: Context) :
@@ -34,14 +27,12 @@ class UserRecyclerViewAdapter(private val context: Context) :
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        Log.d("YASH from onBindViewHolder", position.toString())
         val user = userList[position]
         holder.bind(user)
     }
 
     fun setUserList(userList: List<User>) {
         this.userList = userList
-        Log.d("YASH from setUserList", "Hi "+this.userList.toString())
         notifyDataSetChanged()
     }
 
@@ -54,7 +45,6 @@ class UserRecyclerViewAdapter(private val context: Context) :
         }
 
         override fun onLongClick(view: View?): Boolean {
-            Log.d("YASH from onLongClickListener", layoutPosition.toString())
             val item = ClipData.Item(layoutPosition.toString() as CharSequence)
             val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
             val dragData = ClipData(layoutPosition.toString(), mimeTypes, item)
@@ -63,5 +53,4 @@ class UserRecyclerViewAdapter(private val context: Context) :
             return true
         }
     }
-
 }
