@@ -21,6 +21,8 @@ object UserRepository {
         }
     }
 
+    fun getUser(index: Int) = users.value?.get(index)
+
     fun deleteUser(index: Int) {
         usersLiveData.value = usersLiveData.value?.toMutableList()?.apply {
             removeAt(index)

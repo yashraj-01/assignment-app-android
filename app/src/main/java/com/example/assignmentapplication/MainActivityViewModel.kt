@@ -18,6 +18,8 @@ class MainActivityViewModel(): ViewModel() {
     val users: LiveData<List<User>>
         get() = UserRepository.users
 
+    fun getUser(index: Int) = UserRepository.getUser(index)!!
+
     fun deleteUser(index: Int) {
         UserRepository.deleteUser(index)
     }
