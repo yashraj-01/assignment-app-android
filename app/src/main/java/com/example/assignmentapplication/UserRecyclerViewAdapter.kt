@@ -34,16 +34,9 @@ class UserRecyclerViewAdapter(private val context: Context) :
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        Log.d("YASH from onBindViewHolder", position.toString())
         val user = userList[position]
         holder.bind(user)
-
-        binding.cvUser.setOnLongClickListener {
-            val item = ClipData.Item(position.toString() as CharSequence)
-            val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
-            val dragData = ClipData(user.first_name, mimeTypes, item)
-            val shadowBuilder = View.DragShadowBuilder(it)
-            it.startDragAndDrop(dragData, shadowBuilder, null, 0)
-        }
     }
 
     fun setUserList(userList: List<User>) {
@@ -54,9 +47,20 @@ class UserRecyclerViewAdapter(private val context: Context) :
 
 
     class UserViewHolder(private val binding: ItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root), View.OnLongClickListener {
         fun bind(user: User) {
             binding.user = user
+            binding.cvUser.setOnLongClickListener(this)
+        }
+
+        override fun onLongClick(view: View?): Boolean {
+            Log.d("YASH from onLongClickListener", layoutPosition.toString())
+            val item = ClipData.Item(layoutPosition.toString() as CharSequence)
+            val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
+            val dragData = ClipData(layoutPosition.toString(), mimeTypes, item)
+            val shadowBuilder = View.DragShadowBuilder(view)
+            view?.startDragAndDrop(dragData, shadowBuilder, null, 0)
+            return true
         }
     }
 

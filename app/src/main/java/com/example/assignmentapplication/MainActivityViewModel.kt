@@ -11,7 +11,7 @@ class MainActivityViewModel(): ViewModel() {
 
     init {
         viewModelScope.launch {
-            UserRepository.getUsers(2)
+            UserRepository.getUsers(10)
         }
     }
 
